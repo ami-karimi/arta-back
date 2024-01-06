@@ -103,3 +103,21 @@ wait
 service freeradius stop
 sudo php artisan install:radius
 service freeradius start
+
+curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+wait
+source ~/.bashrc
+nvm install node
+wait
+nvm install v18
+wait
+npm install forever -g
+sudo a2enmod ssl
+sudo a2enmod proxy
+sudo a2enmod proxy_balancer
+sudo a2enmod proxy_http
+
+service apache2 restart
+wait
+sudo apt install -y certbot python3-certbot-apache
+
