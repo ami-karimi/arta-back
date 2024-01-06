@@ -13,6 +13,7 @@ class SettingsController extends Controller
 {
 
     public function getSettings(){
+
         $setting = Settings::get()->toArray();
 
         return response()->json([
@@ -25,6 +26,12 @@ class SettingsController extends Controller
     }
 
     public function save_setting(Request $request){
+        return  response()->json([
+            'status' => false,
+            'message' => 'شما اجازه انجام این عملیات را  ندارید این حالت دمو میباشد.'
+        ],403);
+
+
         Cache::forget('settings');
 
         if($request->ftp){
