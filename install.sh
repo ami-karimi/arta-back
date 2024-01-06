@@ -28,7 +28,7 @@ echo ""
 printarta "ArtaPanel Instalation" 0.1
 sudo apt -y install software-properties-common
 sudo add-apt-repository ppa:ondrej/php -y
-sudo apt install -y php8.1 libapache2-mod-php8.1 php8.1-common php8.1-bcmath  php8.1-curl  php8.1-dom  ph>
+sudo apt install -y php8.1 libapache2-mod-php8.1 php8.1-common php8.1-bcmath  php8.1-curl  php8.1-dom  php8.1-mbstring php8.1-zip  php8.1-cli php8.1-gd php8.1-mysql  php8.1-xml
 apt install -y git  apache2 zip unzip net-tools curl
 sudo systemctl restart apache2
 clear
