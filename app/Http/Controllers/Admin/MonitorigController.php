@@ -40,7 +40,7 @@ class MonitorigController extends Controller
         $FindRas = Ras::where('ipaddress',$ip)->first();
         $API        = new Mikrotik((object)[
             'l2tp_address' => $FindRas->mikrotik_domain,
-            'mikrotik_port' => $FindRas->mikrotik_port,
+            'mikrotik_port' => (int) $FindRas->mikrotik_port,
             'username' => $FindRas->mikrotik_username,
             'password' => $FindRas->mikrotik_password,
         ]);
