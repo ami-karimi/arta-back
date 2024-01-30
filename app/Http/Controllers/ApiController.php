@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Utility\Helper;
+use App\Utility\Mikrotik;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Stogram;
@@ -36,42 +37,7 @@ class ApiController extends Controller
     public function index(){
 
 
-        $v2ray_users = User::where('service_group','v2ray')->get();
-        foreach ($v2ray_users as $row){
-            $login = new V2raySN(
-                [
-                    'HOST' => $row->v2ray_server->ipaddress,
-                    "PORT" => $row->v2ray_server->port_v2ray,
-                    "USERNAME" => $row->v2ray_server->username_v2ray,
-                    "PASSWORD" => $row->v2ray_server->password_v2ray,
-                    "CDN_ADDRESS"=> $row->v2ray_server->cdn_address_v2ray,
-                ]
-            );
-            if($login->error['status']){
-                continue;
-            }
-            $v2_current = $login->get_client($row->username);
-            if($v2_current) {
-                $expire_time = ((int)$v2_current['expiryTime'] > 0 ? (int)$v2_current['expiryTime'] / 1000 : 0);
 
-
-
-                    $days = 30;
-                    $tm = floor(microtime(true) * 1000);
-                    $expiretime = $tm + (864000 * $days * 100) ;
-
-
-                    $login->update_client($row->uuid_v2ray, [
-                        'service_id' => $row->protocol_v2ray,
-                        'username' => $row->username,
-                        'multi_login' => $row->group->multi_login,
-                        'totalGB' =>   @round((((int) $row->group->group_volume *1024) * 1024) * 1024 ),
-                        'expiryTime' => $expiretime,
-                        'enable' => ($row->is_enabled ? true : false),
-                    ]);
-
-            }
-        }
 
         //header('Content-Type: application/json; charset=utf-8');
 
@@ -80,12 +46,16 @@ class ApiController extends Controller
        // Helper::get_db_backup();
        // Helper::get_backup();
 
-        /*
-        $monitorin = new MonitorigController();
-        $re = $monitorin->KillUser((object) ['l2tp_address' => 's2.arta20.xyz'],'amirtld');
+        $API        = new Mikrotik((object)[
+            'l2tp_address' => 'ov1.khoram.top',
+            'mikrotik_port' => 3232,
+            'username' => "admin",
+            'password' => "ArtaNet@@1402",
+        ]);
+        $API->debug = false;
 
-        print_r($re);
-        */
+        print_r($API->connect());
+
 
     }
 
