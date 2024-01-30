@@ -309,7 +309,7 @@ class UserController extends Controller
                 $saved->public_key = $user_wi['client_public_key'];
                 $saved->user_ip = $user_wi['ip_address'];
                 $saved->save();
-                exec('qrencode -t png -o /var/www/html/arta/public/configs/'.$user_wi['config_file'].".png -r /var/www/html/arta/public/configs/".$user_wi['config_file'].".conf");
+                exec('qrencode -t png -o /var/www/html/arta-back/public/configs/'.$user_wi['config_file'].".png -r /var/www/html/arta-back/public/configs/".$user_wi['config_file'].".conf");
 
             }
 
@@ -421,7 +421,7 @@ class UserController extends Controller
                           return response()->json(['status' => true, 'message' => 'کاربر ایجاد نشد مجددا تلاش نمایید!','ss'=> $user_wi,'sss'=>$save],403);
 
                       }
-                      exec('qrencode -t png -o /var/www/html/arta/public/configs/'.$user_wi['config_file'].".png -r /var/www/html/arta/public/configs/".$user_wi['config_file'].".conf");
+                      exec('qrencode -t png -o /var/www/html/arta-back/public/configs/'.$user_wi['config_file'].".png -r /var/www/html/arta-back/public/configs/".$user_wi['config_file'].".conf");
 
                 }else{
                       $user->delete();
