@@ -89,9 +89,7 @@ class UserController extends Controller
         return new UserCollection($user->orderBy('id','DESC')->paginate(50));
     }
     public function create(StoreSingleUserRequest $request){
-        if($request->account_type){
-            return $this->CreateWireGuardAccount($request);
-        }
+
 
         if($request->service_group == 'v2ray'){
             $req_all = $request->all();
@@ -194,7 +192,9 @@ class UserController extends Controller
             return response()->json(['message' => 'کاربر با موفقیت ایجاد شد!']);
 
         }
-
+        if($request->account_type){
+            return $this->CreateWireGuardAccount($request);
+        }
         $userNameList = [];
 
         $type = 'single';
