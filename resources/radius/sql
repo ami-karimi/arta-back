@@ -117,7 +117,7 @@ sql {
 	postauth_table = "radpostauth"
 
 	# Tables containing 'check' items
-	authcheck_table = "users"
+	authcheck_table = "radcheck"
 	users_table = "users"
 	users_off_table = "users"
 	groupcheck_table = "radgroupcheck"
