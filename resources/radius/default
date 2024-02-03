@@ -433,11 +433,11 @@ authorize {
      }
     if(userlock){
 	  # Let him connect with EXPIRED pool in reply
-      	ok
 	      update reply {
 	       Reply-Message := "Your account has expired, %{User-Name} / Reason: DATE LIMIT REACHED"
 	      Framed-Pool := "Expired"
 	    }
+	    attr_filter.access_reject
      }
 	#logintime
 
