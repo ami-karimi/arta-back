@@ -357,7 +357,7 @@ authorize {
 	#  the MS-CHAP-Challenge attribute, and add 'Auth-Type := MS-CHAP'
 	#  to the request, which will cause the server to then use
 	#  the mschap module for authentication.
-	#mschap
+	mschap
 
 	#
 	#  If you have a Cisco SIP server authenticating against
@@ -484,10 +484,10 @@ authorize {
 	#  This permits you to do DB queries, for example.  If the modules
 	#  listed here return "fail", then NO response is sent.
 	#
-	#status_server = yes
-	#Autz-Type Status-Server {
-    	#		ok
-   # }
+	status_server = yes
+	Autz-Type Status-Server {
+    			ok
+   }
 
 
 
