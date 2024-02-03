@@ -305,28 +305,6 @@ authorize {
 	##Edit by Mitul
 
 
-	  if("%{sql:SELECT username,expire_date,expire_set FROM users WHERE username = '%{User-Name}' AND expire_set = 1  AND  expire_date < FROM_UNIXTIME(%{integer:Event-Timestamp})}"){
-       	update reply {
-    	    &Reply-Message := "Account Has Expired"
-         	&Framed-Pool := "Expired"
-    	}
-
-    		reject
-      }
-
-	   "%{sql:UPDATE  radacct SET acctstoptime = date_add(now(),interval +2 MINUTE) WHERE username = '%{User-Name}' AND  acctupdatetime < (NOW() - INTERVAL 10 MINUTE)  AND  ISNULL(acctstoptime) }"
-
-        #if("%{sql:SELECT multi_login  FROM users  WHERE username = '%{User-Name}' }" <=  "%{sql:SELECT  count(*) FROM users INNER JOIN radacct ON radacct.username = users.username WHERE users.username = '%{User-Name}' AND ISNULL(radacct.acctstoptime) AND radacct.saved = 0 }"){
-         	#update reply {
-          	#    &Reply-Message := "Maximum Online"
-            #  	&Framed-Pool := "Maximum Online"
-          #	}
-          #	reject
-    #   }
-
-
-
-
 
 	###
 	#  If you intend to use CUI and you require that the Operator-Name
@@ -450,18 +428,17 @@ authorize {
 
 	#
 
-   expiration{
-	  userlock = 1
-    }
+expiration{
+	userlock = 1
+}
     if(userlock){
-    	# Let him connect with EXPIRED pool in reply
-
-    	update reply {
-    	  &Reply-Message := "Expired Account"
-       	 &Framed-Pool := "Expired"
-    	}
-    }
-
+	  # Let him connect with EXPIRED pool in reply
+      	ok
+	      update reply {
+	       Reply-Message := "Your account has expired, %{User-Name} / Reason: DATE LIMIT REACHED"
+	      Framed-Pool := "Expired"
+	    }
+     }
 	#logintime
 
 
