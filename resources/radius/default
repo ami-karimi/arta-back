@@ -428,9 +428,9 @@ authorize {
 
 	#
 
-expiration{
-	userlock = 1
-}
+    expiration{
+     	userlock = 1
+     }
     if(userlock){
 	  # Let him connect with EXPIRED pool in reply
       	ok
